@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="about-page">
+  <h1>📝 About This App</h1>
+  <p><strong>Welcome to Note App — your personal space to capture thoughts, ideas, and everything in between.</strong></p>
+  <p>This app was designed with simplicity and elegance in mind, helping you stay organized without distractions. Whether you're jotting down a quick reminder or crafting a detailed plan, Note App is here to support your flow.</p>
+  <p>Built with using Django (HTML,CSS,Python).</p>
+
+  
+  <footer class="about-footer">
+    <p>Made with 💙 by Alanoud Almarshad</p>
+  </footer>
+</section>
+{% endblock %}

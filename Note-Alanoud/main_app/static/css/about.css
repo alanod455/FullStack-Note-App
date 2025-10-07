@@ -1,0 +1,58 @@
+/* static/css/about.css */
+
+body {
+  background-color: #f4f7fc;
+  color: #1a2b4b;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.about-page {
+  max-width: 800px;
+  margin: 80px auto;
+  background: #ffffffd9;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px 50px;
+  transition: all 0.3s ease;
+}
+
+.about-page:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-page h1 {
+  font-size: x-large;
+  color: #3f51b5;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.about-page p {
+  font-size: medium;
+  line-height: 1.8;
+  color: #1a1a2e;
+  margin-bottom: 18px;
+}
+
+.about-page strong {
+  color: #3f51b5;
+}
+
+.about-footer {
+  text-align: center;
+  margin-top: 35px;
+  font-size: 0.9rem;
+  color: #6c6c80;
+}
+
+@media (max-width: 600px) {
+  .about-page {
+    padding: 25px 30px;
+  }
+  .about-page h1 {
+    font-size: 1.8rem;
+  }
+}

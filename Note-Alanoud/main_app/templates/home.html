@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+{% block content %}
+
+<section class="logo-container">
+
+  <a href="/notes" class="note-link">
+    <div class="note-container">
+      <img src="{% static 'images/image.png' %}" alt="All Notes" />
+      <h2>All Notes</h2>
+    </div>
+  </a>
+
+
+  <a href="/about" class="note-link">
+    <div class="note-container">
+      <img src="{% static 'images/image.png' %}" alt="About" />
+      <h2>About</h2>
+    </div>
+  </a>
+</section>
+
+{% endblock %}
