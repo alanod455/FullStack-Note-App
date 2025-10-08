@@ -21,11 +21,13 @@
 
     <nav>
       <ul>
-
-        <li><a href="{% url 'notes_index' %}">All Notes</a></li>
-        <li><a href="{% url 'note-create' %}">Add a Note</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
-      </ul>
+        <ul>
+          <li><a href="{% url 'emoji-index' %}">All Emojis</a></li>
+          <li><a href="{% url 'emoji-create' %}">Add an Emoji Reaction</a></li>
+          <li><a href="{% url 'notes_index' %}">All Notes</a></li>
+          <li><a href="{% url 'note-create' %}">Add a Note</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
     </nav>
     {% endif %}
   </header>

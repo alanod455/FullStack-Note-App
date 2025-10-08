@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Delete Emoji Reaction</h1>
+  <img src="{% static 'images/emojireact.png' %}" alt="" style="width:30%;" />
+</div>
+
+<div class="delete-card">
+  <h2>Are you sure you want to delete this emoji reaction?</h2>
+  <p><strong>Note:</strong> {{ object.note.title }}</p>
+  {% if object.user %}
+    <p><strong>By:</strong> {{ object.user.username }}</p>
+  {% endif %}
+  <p class="date"><strong>Reacted at:</strong> {{ object.reacted_at|date:"M d, Y H:i" }}</p>
+
+  <form action="" method="post" class="form-buttons">
+    {% csrf_token %}
+    <a href="{% url 'emoji-detail' object.id %}" class="btn secondary">Cancel</a>
+    <button type="submit" class="btn danger">Yes - Delete!</button>
+  </form>
+</div>
+
+{% endblock %}

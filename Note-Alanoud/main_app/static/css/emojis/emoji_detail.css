@@ -1,0 +1,84 @@
+
+body {
+  background-color: #f4f7fc;
+  font-family: "Poppins", sans-serif;
+  color: #1a2b4b;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  max-width: 500px;
+  margin: 50px auto;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-content .emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.card-content p {
+  font-size: 1rem;
+  margin: 0.3rem 0;
+  color: #444;
+}
+
+.date {
+  font-size: 0.85rem;
+  color: #667;
+  margin-top: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.25s ease;
+  color: #fff;
+}
+
+.btn.warn {
+  background-color: #f0ad4e;
+}
+
+.btn.warn:hover {
+  background-color: #ec9c3c;
+}
+
+.btn.danger {
+  background-color: #d9534f;
+}
+
+.btn.danger:hover {
+  background-color: #c9302c;
+}

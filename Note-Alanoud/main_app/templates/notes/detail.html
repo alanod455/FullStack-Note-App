@@ -16,5 +16,59 @@
     <a href="{% url 'note-delete' note.id %}" class="btn danger">Delete</a>
 
   </div>
+
+
+  <section class="tasks">
+    <form method="post" class="tasks-form">
+      {% csrf_token %}
+
+      {% if note.tasks.exists %}
+      <ul class="task-list">
+        {% for task in note.tasks.all %}
+        <li>
+          <label class="task-item">
+            <input type="checkbox" name="task_{{ task.id }}" {% if task.completed %}checked{% endif %}>
+            <span class="{% if task.completed %}completed{% endif %}">{{ task.title }}</span>
+          </label>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No tasks yet.</p>
+      {% endif %}
+
+      <h2>Add a Task:</h2>
+      {{ task_form.title }}
+      <button type="submit" class="btn add-btn">Add / Update Task</button>
+    </form>
+  </section>
+
+  <!-- Emoji Section -->
+  <section class="emojis">
+    <h2>Gift an Emoji</h2>
+    {% if emojis %}
+<ul class="emoji-list">
+  {% for emoji in emojis %}
+  <li class="emoji-item">
+    <span class="emoji-char">{{ emoji.emoji }}</span>
+    {% if emoji not in note_emojis %}
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="emoji_id" value="{{ emoji.id }}">
+        <button type="submit" class="btn emoji-btn">Gift this Emoji</button>
+      </form>
+    {% else %}
+      <span>Already gifted ✅</span>
+      <a href="{% url 'remove-emoji' note.id emoji.id %}" class="btn warn">Remove</a>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+    {% else %}
+    <p>No emojis available.</p>
+    {% endif %}
+
+    
 </section>
 {% endblock %}

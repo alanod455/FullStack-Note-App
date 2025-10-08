@@ -114,6 +114,14 @@ p {
   font-size: 1.6rem;
   margin-bottom: 10px;
 }
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+}
 
 @media (max-width: 768px) {
   header {

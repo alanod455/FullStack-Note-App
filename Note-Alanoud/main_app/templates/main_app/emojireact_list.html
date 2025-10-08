@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/emojis/emoji-index.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <h1>All Emoji Reactions</h1>
+  <img src="{% static 'images/emojireact.png' %}" alt="emoji reactions icon" />
+</section>
+<section class="card-container">
+  {% if emojireact_list %}
+    {% for reaction in emojireact_list %}
+      <a href="{% url 'emoji-detail' reaction.id %}" class="card-link">
+        <div class="card">
+          <div class="card-content">
+            <h2 class="emoji">{{ reaction.emoji }}</h2>
+            {% if reaction.user %}
+              <p><strong>By:</strong> {{ reaction.user.username }}</p>
+            {% endif %}
+            <p class="date">{{ reaction.reacted_at|date:"M d, Y H:i" }}</p>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  {% else %}
+    <p>No emoji reactions yet 😅</p>
+  {% endif %}
+</section>
+
+{% endblock %}
