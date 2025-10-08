@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from .models import EmojiReact, Note, Task
 from .forms import TaskForm, EmojiForm
+from django.views.decorators.http import require_POST
 
 
 def home(request):
@@ -16,7 +17,7 @@ def about(request):
 
 
 def notes_index(request):
-    notes = Note.objects.all()
+    notes = Note.objects.all().order_by('-is_pinned', '-created_at')
     return render(request, 'notes/index.html', {'notes': notes})
 
 
@@ -28,10 +29,10 @@ def note_detail(request, note_id):
 
     if request.method == 'POST':
 
-        for task in note.tasks.all():
+        for task in tasks:
             task.completed = f'task_{task.id}' in request.POST
             task.save()
-
+            
         task_form = TaskForm(request.POST)
 
         if task_form.is_valid() and task_form.cleaned_data['title']:
@@ -43,6 +44,10 @@ def note_detail(request, note_id):
             emoji_id = request.POST.get('emoji_id')
             emoji = EmojiReact.objects.get(id=emoji_id)
             note.emojis.add(emoji)
+
+        if 'toggle_pin' in request.POST:
+            note.is_pinned = not note.is_pinned
+            note.save()
 
         return redirect('note-detail', note_id=note.id)
 
@@ -101,9 +106,9 @@ class EmojiDetail(DetailView):
 
 class EmojiUpdate(UpdateView):
     model = EmojiReact
-    fields = ['emoji'] 
+    fields = ['emoji']
     template_name = 'main_app/emojireact_form.html'
-    success_url = reverse_lazy('emoji-index') 
+    success_url = reverse_lazy('emoji-index')
 
 
 class EmojiDelete(DeleteView):
@@ -119,8 +124,17 @@ def associate_emoji(request, note_id, emoji_id):
         note.emojis.add(emoji_id)
     return redirect('note-detail', note_id=note_id)
 
+
 def remove_emoji(request, note_id, emoji_id):
     note = get_object_or_404(Note, id=note_id)
     emoji = get_object_or_404(EmojiReact, id=emoji_id)
     note.emojis.remove(emoji)
     return redirect('note-detail', note_id=note.id)
+
+
+@require_POST
+def toggle_pin(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    note.is_pinned = not note.is_pinned
+    note.save()
+    return redirect('notes-index')

@@ -14,6 +14,7 @@ class Note(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     emojis = models.ManyToManyField(EmojiReact, blank=True, related_name='notes')  
+    is_pinned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -26,3 +27,13 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+class Pin(models.Model):
+    note = models.OneToOneField('Note', on_delete=models.CASCADE, related_name='pin')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Pin for note: {self.note.title}"

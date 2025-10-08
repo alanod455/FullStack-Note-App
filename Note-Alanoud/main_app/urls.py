@@ -20,4 +20,12 @@ urlpatterns = [
     path('notes/<int:note_id>/associate-emoji/<int:emoji_id>/', views.associate_emoji, name='associate-emoji'),
     path('notes/<int:note_id>/remove-emoji/<int:emoji_id>/', views.remove_emoji, name='remove-emoji'),
 
+
+
+    path('notes/', views.notes_index, name='notes-index'),
+    path('notes/<int:note_id>/toggle_pin/', views.toggle_pin, name='toggle-pin'),
+    path('notes/<int:note_id>/', views.note_detail, name='note-detail'),
+    
+
+
 ]

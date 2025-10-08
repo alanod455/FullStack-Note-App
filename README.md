@@ -1,5 +1,10 @@
 # Note-App
 
+<<<<<<< HEAD
+=======
+# Note-App
+
+>>>>>>> 645f75b77d34f0fda276075dcec71fa46446b2bd
 A modern Django web application for managing notes.  
 Users can create, view, update, and delete notes with a clean, user-friendly interface.
 
@@ -47,4 +52,8 @@ python manage.py runserver
 8. **Open your browser and visit:**
 ```
 http://127.0.0.1:8000/
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 645f75b77d34f0fda276075dcec71fa46446b2bd

@@ -11,19 +11,36 @@
 
 <section class="card-container">
   {% for note in notes %}
-  <a href="{% url 'note-detail' note.id %}">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-img-container">
-          <img src="{% static 'images/image.png' %}" alt="A note image" />
-        </div>
-        <h2 class="card-title">{{ note.title }}</h2>
-        <p>{{ note.content }}</p>
+  <div class="card">
+    <div class="card-content">
+      <div class="card-img-container">
+        <img src="{% static 'images/image.png' %}" alt="A note image" />
       </div>
+
+      <h2 class="card-title">
+        <a href="{% url 'note-detail' note.id %}">{{ note.title }}</a>
+        {% if note.is_pinned %}
+          📌
+        {% endif %}
+      </h2>
+
+      <p>{{ note.content }}</p>
+
+      <form action="{% url 'toggle-pin' note.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">
+          {% if note.is_pinned %}
+            Unpin
+          {% else %}
+            Pin
+          {% endif %}
+        </button>
+      </form>
     </div>
-  </a>
+  </div>
   {% endfor %}
 </section>
+
 
 {% endblock %}
 

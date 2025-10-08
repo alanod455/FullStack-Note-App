@@ -110,7 +110,7 @@ img {
 
 .add-btn {
   padding: 12px 20px;
-  background-color: #3f51b5;
+  background-color: #2b3a67;
   color: white;
   border: none;
   border-radius: 8px;
@@ -135,12 +135,12 @@ img {
   border-radius: 8px;
   text-decoration: none;
   color: white;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   transition: background-color 0.2s;
 }
 
 .btn.warn {
-  background-color: #3f51b5;
+  background-color: #2b3a67;;
 }
 
 .btn.warn:hover {
@@ -148,7 +148,7 @@ img {
 }
 
 .btn.danger {
-  background-color: #3f51b5;
+  background-color: #2b3a67;
 }
 
 .btn.danger:hover {
@@ -203,12 +203,14 @@ span {
 }
 
 .emoji-list {
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   list-style: none;
   padding: 0;
   margin: 0;
+
 }
 
 .emoji-item {
@@ -232,19 +234,10 @@ span {
   margin-bottom: 10px;
 }
 
-.emoji-btn {
-  background-color: #4f46e5;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
-}
 
+  
 .emoji-btn:hover {
-  background-color: #3730a3;
+  background-color: #2b3a67;;
 }
 
 @media (max-width: 600px) {
