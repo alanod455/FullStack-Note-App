@@ -7,29 +7,22 @@ body {
 
 .logo-container {
   display: flex;
-  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 40px;
-  padding: 60px 20px;
-  flex-wrap: wrap; 
-}
-
-.note-link {
-  text-decoration: none;
+  margin-bottom: 30px;
 }
 
 .note-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: #e3e8f1;
-  padding: 30px;
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  width: 180px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 200px;
 }
 
 .note-container:hover {
@@ -39,14 +32,51 @@ body {
 
 .note-container img {
   width: 100%;
+  height: auto;
+  max-width: 180px;
   border-radius: 12px;
-  margin-bottom: 15px;
 }
+
 
 .note-container h2 {
   font-size: 1.6rem;
   color: #2b3a67;
   margin: 0;
+  text-align: center;
+}
+
+.login-section {
+  width: 300px;
+  max-width: 90%;
+  margin: 0 auto 50px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.login-section h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-section .btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1.6rem;
+  border-radius: 12px;
+  background-color: #2b3a67;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-section .btn:hover {
+  background-color: #c79d6d;
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {

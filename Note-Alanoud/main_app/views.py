@@ -7,9 +7,15 @@ from .models import EmojiReact, Note, Task
 from .forms import TaskForm, EmojiForm
 from django.views.decorators.http import require_POST
 
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 
-def home(request):
-    return render(request, 'home.html')
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class Home(LoginView):
+    template_name = 'home.html'
 
 
 def about(request):
@@ -17,7 +23,7 @@ def about(request):
 
 
 def notes_index(request):
-    notes = Note.objects.all().order_by('-is_pinned', '-created_at')
+    notes = Note.objects.filter(user=request.user).order_by('-is_pinned', '-created_at')
     return render(request, 'notes/index.html', {'notes': notes})
 
 
@@ -59,7 +65,7 @@ def note_detail(request, note_id):
         'note_emojis': emojis
     })
 
-
+@require_POST
 def add_emoji(request):
     if request.method == 'POST':
         form = EmojiForm(request.POST)
@@ -71,13 +77,15 @@ def add_emoji(request):
     return render(request, 'notes/add_emoji.html', {'form': form})
 
 
-class NoteCreate(CreateView):
+class NoteCreate(LoginRequiredMixin,CreateView):
     model = Note
     fields = ['title', 'content']
     success_url = '/notes/'
+    def form_valid(self, form):
+        form.instance.user = self.request.user  
+        return super().form_valid(form)
 
-
-class NoteUpdate(UpdateView):
+class NoteUpdate(LoginRequiredMixin,UpdateView):
     model = Note
     fields = ['title', 'content']
     template_name = 'main_app/note_form.html'
@@ -86,35 +94,35 @@ class NoteUpdate(UpdateView):
         return reverse('note-detail', kwargs={'note_id': self.object.pk})
 
 
-class NoteDelete(DeleteView):
+class NoteDelete(LoginRequiredMixin, DeleteView):
     model = Note
     success_url = '/notes/'
 
 
-class EmojiCreate(CreateView):
+class EmojiCreate(LoginRequiredMixin,CreateView):
     model = EmojiReact
     fields = '__all__'
+    success_url = reverse_lazy('emoji-index') 
 
 
-class EmojiList(ListView):
+class EmojiList(LoginRequiredMixin,ListView):
     model = EmojiReact
 
 
-class EmojiDetail(DetailView):
+class EmojiDetail(LoginRequiredMixin,DetailView):
     model = EmojiReact
 
 
-class EmojiUpdate(UpdateView):
+class EmojiUpdate(LoginRequiredMixin,UpdateView):
     model = EmojiReact
     fields = ['emoji']
     template_name = 'main_app/emojireact_form.html'
     success_url = reverse_lazy('emoji-index')
 
-
-class EmojiDelete(DeleteView):
+class EmojiDelete(LoginRequiredMixin,DeleteView):
     model = EmojiReact
     success_url = reverse_lazy('emoji-index')
-    template_name = 'main_app/emojireact_confirm_delete.html'\
+    template_name = 'main_app/emojireact_confirm_delete.html'
 
 
 
@@ -132,9 +140,26 @@ def remove_emoji(request, note_id, emoji_id):
     return redirect('note-detail', note_id=note.id)
 
 
-@require_POST
+
 def toggle_pin(request, note_id):
     note = get_object_or_404(Note, id=note_id)
     note.is_pinned = not note.is_pinned
     note.save()
     return redirect('notes-index')
+
+
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('notes_index')  
+        else:
+            error_message = 'Invalid sign up - try again'
+    else:
+        form = UserCreationForm()
+    
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'signup.html', context)

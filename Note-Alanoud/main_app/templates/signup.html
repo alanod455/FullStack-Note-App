@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock %} 
+
+{% block content %}
+<main class="signup-page">
+
+  <section class="signup-container">
+    <div class="page-header">
+      <h1>Sign Up</h1>
+      <img src="{% static 'images/image.png' %}" alt="Sign Up Image" />
+    </div>
+
+    <p class="login-link">
+      Already have an account? <a href="{% url 'home' %}">Sign In</a>
+    </p>
+    {% if error_message %}
+      <p class="red-text">{{ error_message }}</p>
+    {% endif %}
+
+    <form action="" method="post" class="form-container" autocomplete="off">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn submit">Sign Up</button>
+    </form>
+
+  </section>
+
+</main>
+{% endblock %}

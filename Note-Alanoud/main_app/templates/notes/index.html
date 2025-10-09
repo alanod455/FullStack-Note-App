@@ -6,7 +6,7 @@
 {% block content %}
 
 <section class="page-header">
-    <h1>Note List</h1>
+  <h1>Note List</h1>
 </section>
 
 <section class="card-container">
@@ -20,7 +20,7 @@
       <h2 class="card-title">
         <a href="{% url 'note-detail' note.id %}">{{ note.title }}</a>
         {% if note.is_pinned %}
-          📌
+        📌
         {% endif %}
       </h2>
 
@@ -30,9 +30,9 @@
         {% csrf_token %}
         <button type="submit">
           {% if note.is_pinned %}
-            Unpin
+          Unpin
           {% else %}
-            Pin
+          Pin
           {% endif %}
         </button>
       </form>
@@ -43,4 +43,3 @@
 
 
 {% endblock %}
-

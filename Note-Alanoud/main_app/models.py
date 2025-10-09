@@ -1,6 +1,6 @@
 # models.py
 from django.db import models
-
+from django.contrib.auth.models import User
 class EmojiReact(models.Model):
     emoji = models.CharField(max_length=5)  
 
@@ -15,7 +15,7 @@ class Note(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     emojis = models.ManyToManyField(EmojiReact, blank=True, related_name='notes')  
     is_pinned = models.BooleanField(default=False)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.title
     

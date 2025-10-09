@@ -1,26 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
+
 {% block content %}
+<main class="home-page">
 
-<section class="logo-container">
+  {% if not user.is_authenticated %}
+    <section class="logo-container">
+      <a href="{% url 'about' %}" class="note-link">
+        <div class="note-container">
+          <img src="{% static 'images/image.png' %}" alt="About">
+          <h2>About</h2>
+        </div>
+      </a>
 
-  <a href="/notes" class="note-link">
-    <div class="note-container">
-      <img src="{% static 'images/image.png' %}" alt="All Notes" />
-      <h2>All Notes</h2>
-    </div>
-  </a>
+      <a href="{% url 'signup' %}" class="note-link">
+        <div class="note-container">
+          <img src="{% static 'images/image.png' %}" alt="Sign Up">
+          <h2>Sign Up</h2>
+        </div>
+      </a>
+    </section>
 
+    <section class="login-section">
+      <form action="{% url 'home' %}" method="post" class="login-form">
+        <h1>Login</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="btn submit">Login</button>
+      </form>
+    </section>
 
-  <a href="/about" class="note-link">
-    <div class="note-container">
-      <img src="{% static 'images/image.png' %}" alt="About" />
-      <h2>About</h2>
-    </div>
-  </a>
-</section>
+  {% else %}
+    <section class="logo-container">
+      <a href="{% url 'notes_index' %}" class="note-link">
+        <div class="note-container">
+          <img src="{% static 'images/image.png' %}" alt="All Notes">
+          <h2>Dashboard</h2>
+        </div>
+      </a>
+    </section>
 
+    <section class="welcome-section">
+      <h2>Welcome, {{ user.username|title }} 👋</h2>
+    </section>
+  {% endif %}
+
+</main>
 {% endblock %}

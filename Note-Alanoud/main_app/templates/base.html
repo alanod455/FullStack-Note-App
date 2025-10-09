@@ -21,19 +21,31 @@
 
     <nav>
       <ul>
-        <ul>
-          <li><a href="{% url 'emoji-index' %}">All Emojis</a></li>
-          <li><a href="{% url 'emoji-create' %}">Add an Emoji Reaction</a></li>
-          <li><a href="{% url 'notes_index' %}">All Notes</a></li>
-          <li><a href="{% url 'note-create' %}">Add a Note</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
-        </ul>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'emoji-index' %}">All Emojis</a></li>
+        <li><a href="{% url 'emoji-create' %}">Add an Emoji Reaction</a></li>
+        <li><a href="{% url 'notes_index' %}">All Notes</a></li>
+        <li><a href="{% url 'note-create' %}">Add a Note</a></li>
+        <li>
+          <form id="logout-form" method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log out</button>
+          </form>
+        </li>
+        {% else %}
+
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
     </nav>
     {% endif %}
   </header>
 
   <main>
-    {% block content %}{% endblock %}
+    {% block content %}
+
+    {% endblock %}
   </main>
 </body>
 
