@@ -145,7 +145,7 @@ def toggle_pin(request, note_id):
     note = get_object_or_404(Note, id=note_id)
     note.is_pinned = not note.is_pinned
     note.save()
-    return redirect('notes-index')
+    return redirect('notes_index')
 
 
 def signup(request):
